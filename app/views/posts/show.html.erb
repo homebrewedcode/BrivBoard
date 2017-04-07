@@ -1,5 +1,5 @@
-<p id="notice"><%= notice %></p>
-
+<%= render 'shared/notice' %>
+<%= render 'shared/errors', obj: @comment %>
 <div class="row">
   <h1 class="text-center"><%= @post.title %></h1>
   <div class="col-md-8 col-md-offset-2">
@@ -11,17 +11,17 @@
     </div>
   </div>
 </div>
-<div class="row">
+<div class="row comment-row">
   <div class="col-md-7 col-md-offset-3">
     <h3>Comments</h3>
     <% @comments.each do |comment| %>
-    <div class="well well-lg">
-      <p><%= comment.body %></p>
-      <p><%= link_to 'Delete', comment_path(comment), method: :delete, data: { confirm: "Are you sure?" } %></p>
-    </div>
+      <div class="well well-lg">
+        <p><%= comment.body %></p>
+        <p><%= comment.user_id %></p>
+        <p><%= link_to 'Delete', comment_path(comment), method: :delete, data: { confirm: "Are you sure?" } %></p>
+      </div>
     <% end %>
     <%= render 'comments/form' %>
-    <%= link_to 'All Posts', posts_path %>
   </div>
 </div>
 

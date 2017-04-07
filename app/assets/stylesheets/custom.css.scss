@@ -1,25 +1,33 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
-
-#notice {
-  color: green;
+.comment-row {
+  margin-bottom: 100px;
 }
-
-.field_with_errors {
-  padding: 2px;
-  background-color: red;
-  display: table;
-}
-
-#error_explanation {
-  width: 450px;
-  border: 2px solid red;
-  padding: 7px;
-  padding-bottom: 0;
-  margin-bottom: 20px;
-  background-color: #f0f0f0;
-}
-
 .post-title:hover {
+  text-decoration: none;
+}
+
+/**************Panel effects***************/
+.panel-heading span
+{
+  margin-top: -26px;
+  font-size: 15px;
+  margin-right: -12px;
+}
+
+.clickable {
+  background: rgba(0, 0, 0, 0.15);
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/**************Footer Styles***************/
+footer {
+  margin-bottom: 50px;
+}
+
+footer a:hover {
   text-decoration: none;
 }

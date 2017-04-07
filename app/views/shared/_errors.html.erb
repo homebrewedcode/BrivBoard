@@ -1,0 +1,22 @@
+<% if obj.errors.any? %>
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+        <div class="panel panel-danger">
+          <div class="panel-heading">
+            <div class="panel-title">
+              Entry was not saved due to the following
+              <%= pluralize(obj.errors.count, 'error') %>
+            </div>
+            <span class="pull-right clickable" data-effect="fadeOut"><i class="glyphicon glyphicon-remove"></i></span>
+          </div>
+          <div class="panel-body">
+            <ul>
+              <% obj.errors.full_messages.each do |error| %>
+                  <li><%= error %></li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+<% end %>
