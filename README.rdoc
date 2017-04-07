@@ -1,3 +1,3 @@
 == BrivBoard
 
-This is my attempt at the Brivity Code Challenge.  He who dares wins.
+This is my attempt at the Brivity Code Challenge.  Who dares, wins.
