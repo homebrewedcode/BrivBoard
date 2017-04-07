@@ -25,13 +25,15 @@ class CommentsController < ApplicationController
   # POST /comments.json
   def create
     @comment = Comment.new(comment_params)
+    @post = Post.find(@comment.post_id)
 
     respond_to do |format|
       if @comment.save
         @post = Post.find(@comment.post_id)
         format.html { redirect_to post_path(@post), notice: 'Comment was successfully created.' }
       else
-        format.html { render :new }
+        @comments = @post.comments.all
+        format.html { render "posts/show" }
       end
     end
   end
@@ -55,8 +57,8 @@ class CommentsController < ApplicationController
   def destroy
     @comment.destroy
     respond_to do |format|
-      format.html { redirect_to comments_url, notice: 'Comment was successfully destroyed.' }
-      format.json { head :no_content }
+      @post = Post.find(@comment.post_id)
+      format.html { redirect_to post_url(@post), notice: 'Comment was successfully destroyed.' }
     end
   end
 
