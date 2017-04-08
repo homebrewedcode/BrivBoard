@@ -27,6 +27,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'devise', '~> 4.2', '>= 4.2.1'
 # add pagination
 gem 'will_paginate', '~> 3.1.0'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -39,6 +40,16 @@ gem 'will_paginate', '~> 3.1.0'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
+  gem 'rspec', '~> 3.5'
+  gem 'rspec-rails', '~> 3.5', '>= 3.5.2'
+  gem 'capybara', '~> 2.5'
+  gem 'factory_girl_rails', '~> 4.5.0'
+end
+
+group :test do
+  gem 'shoulda-matchers', '~> 3.0', require: false
+  gem 'database_cleaner', '~> 1.5'
+  gem 'faker', '~> 1.6.1'
 end
 
 group :development do
