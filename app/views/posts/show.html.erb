@@ -27,7 +27,8 @@
       <div class="well well-lg">
         <p><%= comment.body %></p>
         <hr/>
-        <%= render 'shared/meta', obj: comment %>
+        <div class="gravatar"><%= gravatar_for(comment.user, size: 55) %></div>
+        <div class="clearfix"><%= render 'shared/meta', obj: comment %></div>
         <br/>
         <% if user_signed_in? && current_user.id == comment.user_id %>
           <p><%= link_to 'Delete', comment_path(comment), method: :delete, data: { confirm: "Are you sure?" } %></p>

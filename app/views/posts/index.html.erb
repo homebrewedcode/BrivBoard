@@ -9,7 +9,8 @@
           <h2><%= link_to post.title, post_path(post), class: 'post-title' %></h2>
           <p><%= truncate(post.body, length: 100) %></p>
           <hr />
-          <%= render 'shared/meta', obj: post %>
+          <div class="gravatar"><%= gravatar_for(post.user, size: 75) %></div>
+          <div class="clearfix"><%= render 'shared/meta', obj: post %></div>
         </div>
       </div>
     </div>
