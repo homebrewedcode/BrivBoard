@@ -34,6 +34,9 @@
         <% end %>
       </div>
     <% end %>
+    <div align="center" class="digg_pagination">
+      <%= will_paginate @comments%>
+    </div>
     <% if user_signed_in? %>
         <%= render 'comments/form' %>
     <% end %>

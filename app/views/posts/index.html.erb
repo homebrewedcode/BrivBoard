@@ -1,5 +1,8 @@
 <h1 class="text-center">Posts</h1>
-<% @posts.reverse_each do |post| %>
+<div align="center" class="digg_pagination">
+  <%= will_paginate %>
+</div>
+<% @posts.each do |post| %>
     <div class="row">
       <div class="col-md-8 col-md-offset-2">
         <div class="well well-lg">
@@ -11,3 +14,6 @@
       </div>
     </div>
 <% end %>
+<div align="center" class="digg_pagination">
+  <%= will_paginate %>
+</div>
