@@ -14,53 +14,77 @@ class CommentsController < ApplicationController
 
   # GET /comments/new
   def new
-    @comment = Comment.new
+    if user_signed_in?
+      @comment = Comment.new
+    else
+      redirect_to root_path, alert: 'Please sign in to create a comment'
+    end
+
   end
 
   # GET /comments/1/edit
   def edit
+    if not user_signed_in?
+      redirect_to root_path, alert: 'Please sign in edit a comment.'
+    elsif current_user.id != @comment.user_id
+      redirect_to root_path, alert: 'Comment can only be updated by the creator.'
+    end
   end
 
   # POST /comments
   # POST /comments.json
   def create
-    @comment = Comment.new(comment_params)
-    @comment.user_id = current_user.id
-    @post = Post.find(@comment.post_id)
+    if user_signed_in?
+      @comment = Comment.new(comment_params)
+      @comment.user_id = current_user.id
+      @post = Post.find(@comment.post_id)
 
-    respond_to do |format|
-      if @comment.save
-        @post = Post.find(@comment.post_id)
-        format.html { redirect_to post_path(@post), notice: 'Comment was successfully created.' }
-      else
-        @comments = @post.comments.all
-        format.html { render "posts/show" }
+      respond_to do |format|
+        if @comment.save
+          @post = Post.find(@comment.post_id)
+          format.html { redirect_to post_path(@post), notice: 'Comment was successfully created.' }
+        else
+          @comments = @post.comments.all
+          format.html { render "posts/show" }
+        end
       end
+    else
+      redirect_to root_path, alert: 'Please sign in to create a comment'
     end
   end
 
   # PATCH/PUT /comments/1
   # PATCH/PUT /comments/1.json
   def update
-    respond_to do |format|
-      if @comment.update(comment_params)
-        format.html { redirect_to @comment, notice: 'Comment was successfully updated.' }
-        format.json { render :show, status: :ok, location: @comment }
-      else
-        format.html { render :edit }
-        format.json { render json: @comment.errors, status: :unprocessable_entity }
+    if user_signed_in? && current_user.id == @comment.user_id
+      respond_to do |format|
+        if @comment.update(comment_params)
+          format.html { redirect_to @comment, notice: 'Comment was successfully updated.' }
+          format.json { render :show, status: :ok, location: @comment }
+        else
+          format.html { render :edit }
+          format.json { render json: @comment.errors, status: :unprocessable_entity }
+        end
       end
+    else
+      redirect_to root_path, alert: 'Please sign in to update a comment'
     end
+
   end
 
   # DELETE /comments/1
   # DELETE /comments/1.json
   def destroy
-    @comment.destroy
-    respond_to do |format|
-      @post = Post.find(@comment.post_id)
-      format.html { redirect_to post_url(@post), notice: 'Comment was successfully destroyed.' }
+    if user_signed_in? && current_user.id == @comment.user_id
+      @comment.destroy
+      respond_to do |format|
+        @post = Post.find(@comment.post_id)
+        format.html { redirect_to post_url(@post), notice: 'Comment was successfully destroyed.' }
+      end
+    else
+      redirect_to root_path, alert: 'The comment can only be deleted by the creator.'
     end
+
   end
 
   private
