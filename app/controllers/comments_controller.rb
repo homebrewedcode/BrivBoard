@@ -25,6 +25,7 @@ class CommentsController < ApplicationController
 
   # GET /comments/1/edit
   def edit
+    @post = Post.find(@comment.post_id)
     if not user_signed_in?
       redirect_to root_path, alert: 'Please sign in edit a comment.'
     elsif current_user.id != @comment.user_id
@@ -46,7 +47,7 @@ class CommentsController < ApplicationController
           format.html { redirect_to post_path(@post), notice: 'Comment was successfully created.' }
         else
           @comments = @post.comments.all
-          format.html { redirect_to post_path(@post), alert: 'There was an error saving the comment.' }
+          format.html { redirect_to post_path(@post), alert: "Comment can't be empty or over 300 characters." }
         end
       end
     else
@@ -57,13 +58,15 @@ class CommentsController < ApplicationController
   # PATCH/PUT /comments/1
   # PATCH/PUT /comments/1.json
   def update
+    @post = Post.find(@comment.post_id)
     if user_signed_in? && current_user.id == @comment.user_id
       respond_to do |format|
         if @comment.update(comment_params)
-          format.html { redirect_to @comment, notice: 'Comment was successfully updated.' }
+          @post = Post.find(@comment.post_id)
+          format.html { redirect_to @post, notice: 'Comment was successfully updated.' }
           format.json { render :show, status: :ok, location: @comment }
         else
-          format.html { render :edit }
+          format.html { render :edit, alert: 'There was an error saving the comment.' }
           format.json { render json: @comment.errors, status: :unprocessable_entity }
         end
       end
@@ -80,7 +83,7 @@ class CommentsController < ApplicationController
       @comment.destroy
       respond_to do |format|
         @post = Post.find(@comment.post_id)
-        format.html { redirect_to post_url(@post), notice: 'Comment was successfully destroyed.' }
+        format.html { redirect_to post_url(@post), notice: 'Comment was successfully deleted.' }
       end
     else
       redirect_to root_path, alert: 'The comment can only be deleted by the creator.'

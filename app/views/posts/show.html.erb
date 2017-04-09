@@ -17,13 +17,12 @@
 </div>
 <div class="row">
   <div class="col-md-7 col-md-offset-3">
-    <% if not @comments.empty? %>
-      <h3>Comments</h3>
+    <% if @comments.empty? %>
+        <h3>No comments yet,<% if not user_signed_in? %>
+        <%= link_to 'log in', new_user_session_path  %> to<% end %> be the first!</h3>
     <% else %>
-      <h3>No comments yet,<% if not user_signed_in? %>
-      <%= link_to 'log in', new_user_session_path  %> to<% end %> be the first!</h3>
+        <h3>Comments</h3>
     <% end %>
-
     <% @comments.each do |comment| %>
       <div class="well well-lg">
         <p><%= comment.body %></p>
@@ -32,7 +31,8 @@
         <div class="clearfix"><%= render 'shared/meta', obj: comment %></div>
         <br/>
         <% if user_signed_in? && current_user.id == comment.user_id %>
-          <p><%= link_to 'Delete', comment_path(comment), method: :delete, data: { confirm: "Are you sure?" } %></p>
+          <%= link_to 'Edit', edit_comment_path(comment) %> |
+          <%= link_to 'Delete', comment_path(comment), method: :delete, data: { confirm: "Are you sure?" } %>
         <% end %>
       </div>
     <% end %>
