@@ -1,3 +1,26 @@
 == BrivBoard
 
 This is my attempt at the Brivity Code Challenge.  Who dares, wins.
+
+The app is currently deployed to heroku at:
+https://brivboard-homebrewedcode.herokuapp.com
+
+==Features
+* The homepage shows a listing of all posts.
+* Anonymous users can see all posts, and can click on any post to view it as well as all comments.
+* Users must create an account and activate it via email (Devise).
+* Users must be logged in to make a new post or comment.
+* Authenticated users can edit their own posts and comments, but not others.
+* Newest posts show on top.
+* Comments show below posts, with oldest first.
+* Styled with Bootstrap.
+* Postgres was used as production database.
+* 14 unit tests, 1 feature test.
+* Gravatar images are displayed on posts and comments.
+* Ruby Version: 2.3.3
+* Rails Version: 4.2.8
+
+==Testing
+I set up unit tests to test models for data validation, and did some controller testing to check for authenticated access to certain actions.
+I added one feature test to check that a user must be signed in to make a post.  I used guard to run tests, there were a total of 15 tests that pass.
+
