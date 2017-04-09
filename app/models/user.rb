@@ -11,4 +11,5 @@ class User < ActiveRecord::Base
   before_save { self.last_name = last_name.strip.capitalize }
   validates :first_name, presence: true
   validates :last_name, presence: true
+  validates :email, presence: true
 end
