@@ -5,7 +5,8 @@
     <div class="well well-lg">
       <p><%= @post.body %></p>
       <hr/>
-      <%= render 'shared/meta', obj: @post %>
+      <div class="gravatar"><%= gravatar_for(@post.user, size: 75) %></div>
+      <div class="clearfix"><%= render 'shared/meta', obj: @post %></div>
       <br/>
       <% if user_signed_in? && current_user.id == @post.user_id %>
           <%= link_to 'Edit', edit_post_path(@post) %> |
