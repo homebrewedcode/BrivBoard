@@ -23,6 +23,21 @@ Rails.application.configure do
   #setup mail on heroku
   config.action_mailer.default_url_options = { :host => 'brivboard-homebrewedcode.herokuapp.com' }
 
+  #These settings are for the sending out email for active admin and consequently the   devise mailer
+  ActionMailer::Base.delivery_method = :smtp
+  ActionMailer::Base.perform_deliveries = true
+  ActionMailer::Base.raise_delivery_errors = true
+  ActionMailer::Base.smtp_settings =
+      {
+          :address              => 'smtp.gmail.com',
+          :port                 => 587,
+          :domain               => 'brivboard-homebrewedcode.herokuapp.com',
+          :authentication       => :plain,
+          :enable_starttls_auto  => true,
+          :user_name            => ENV["GMAIL_USERNAME"],
+          :password             => ENV["GMAIL_PASSWORD"]
+      }
+
   # Disable serving static files from the `/public` folder by default since
   # Apache or NGINX already handles this.
   config.serve_static_files = ENV['RAILS_SERVE_STATIC_FILES'].present?
@@ -80,3 +95,5 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 end
+
+
