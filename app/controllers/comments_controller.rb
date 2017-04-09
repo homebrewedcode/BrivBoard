@@ -1,4 +1,5 @@
 class CommentsController < ApplicationController
+  before_action :authenticate_user!, only: [:edit, :update, :destroy, :new]
   before_action :set_comment, only: [:show, :edit, :update, :destroy]
 
   # GET /comments
@@ -45,7 +46,7 @@ class CommentsController < ApplicationController
           format.html { redirect_to post_path(@post), notice: 'Comment was successfully created.' }
         else
           @comments = @post.comments.all
-          format.html { render "posts/show" }
+          format.html { redirect_to post_path(@post), alert: 'There was an error saving the comment.' }
         end
       end
     else
