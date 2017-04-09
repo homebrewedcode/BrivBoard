@@ -47,7 +47,7 @@ class CommentsController < ApplicationController
           format.html { redirect_to post_path(@post), notice: 'Comment was successfully created.' }
         else
           @comments = @post.comments.all
-          format.html { redirect_to post_path(@post), alert: "Comment can't be empty or over 300 characters." }
+          format.html { redirect_to post_path(@post), alert: "Comment can't be empty or over 325 characters." }
         end
       end
     else
