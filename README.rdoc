@@ -23,4 +23,5 @@ https://brivboard-homebrewedcode.herokuapp.com
 ==Testing
 I set up unit tests to test models for data validation, and did some controller testing to check for authenticated access to certain actions.
 I added one feature test to check that a user must be signed in to make a post.  I used guard to run tests, there were a total of 15 tests that pass.
+After setting up the project, just run guard in the command line and it will run all the tests.
 
